@@ -1,0 +1,12 @@
+@import 'vars';
+@import 'typography';
+@import 'leaflet';
+@import 'map';
+@import 'dashboard';
+
+body {
+  font-family: Helvetica, sans-serif;
+  color: $font-color--dark;
+  background-color: $background--light;
+  padding: $half-space;
+}

@@ -1,0 +1,61 @@
+<div>
+    <h2>지도 만들기</h2>
+    <!-- leaflet map div start -->
+    <div id="map" class="map"></div>
+    <!-- leaflet map div end -->
+    <!-- layer list start -->
+    <div class="layer-box" ng-if="step==1">
+        <div class="layer-button-list">
+            <ul>
+                <li class="layer-select-area"  ng-repeat="layer in maps.addedLayerMetaList track by $index">
+                    <label class="switch">
+                        <input type="checkbox" id="{{layer.layerId}}" ng-click="maps.addedLayerDisplay($index, $event);" ng-checked="true">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="layer-name">{{layer.layerNm}}</span>
+                    <!-- <img class="set-layer-btn" src="images/buttons/set-layer-btn.png" alt=""> -->
+                    <button class="set-layer-btn" ng-click="maps.setGeoViz($index, 2);"></button>
+                </li>
+                <li class="layer-select-area">
+                    <label class="switch">
+                        <input type="checkbox" ng-checked="true">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="layer-name">Tile Map</span>
+                    <button class="set-layer-btn"></button>
+                </li>
+            </ul>
+        </div>
+        <div class="add-layer">
+            <button class="add-layer-btn">ADD LAYER</button>
+        </div>
+    </div>
+    <!-- layer list end -->
+    <!-- selection geo-visualization start -->
+    <div class="layer-box" ng-if="step==2">
+        <div class="geoviz-button-list">
+            <button class="set-viz-kind-btn" ng-click="maps.selectGeoViz('choropleth')">Choropleth Map</button>
+            <button class="set-viz-kind-btn" ng-click="maps.selectGeoViz('3dChoropleth')">3D Choropleth Map</button>
+            <button class="set-viz-kind-btn">No Title</button>
+            <button class="set-viz-kind-btn">No Title</button>
+            <button class="set-viz-kind-btn">No Title</button>
+            <button class="set-viz-kind-btn">No Title</button>
+            <button class="set-viz-kind-btn">No Title</button>
+            <button class="set-viz-kind-btn">No Title</button>
+        </div>
+        <div class="add-layer">
+            <button class="add-layer-btn" ng-click="maps.setGeoViz(-1, 1);">RETURN</button>
+        </div>
+    </div>
+    <!-- selection geo-visualization end -->
+    <!-- setting/save geo-visualization start -->
+    <div class="layer-box" ng-if="step==3">
+        <div>
+           <p>setting/save geo-visualization</p>
+        </div>
+        <div class="add-layer">
+            <button class="add-layer-btn" ng-click="maps.setGeoViz(-1, 1);">RETURN</button>
+        </div>
+    </div>
+    <!-- setting/save geo-visualization end -->
+</div>
