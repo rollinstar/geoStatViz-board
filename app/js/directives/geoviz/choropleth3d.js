@@ -1,8 +1,8 @@
-function ExampleDirective() {
+function Choropleth3dDirective() {
 
   return {
     restrict: 'EA',
-    templateUrl: 'directives/example.html',
+    templateUrl: 'directives/geoviz/choropleth3d.html',
     scope: {
       title: '@',
       message: '@clickMessage'
@@ -16,6 +16,6 @@ function ExampleDirective() {
 }
 
 export default {
-  name: 'exampleDirective',
-  fn: ExampleDirective
+  name: 'choropleth3dDirective',
+  fn: Choropleth3dDirective
 };

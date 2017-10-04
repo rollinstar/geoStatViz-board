@@ -35,7 +35,7 @@
     <div class="layer-box" ng-if="step==2">
         <div class="geoviz-button-list">
             <button class="set-viz-kind-btn" ng-click="maps.selectGeoViz('choropleth')">Choropleth Map</button>
-            <button class="set-viz-kind-btn" ng-click="maps.selectGeoViz('3dChoropleth')">3D Choropleth Map</button>
+            <button class="set-viz-kind-btn" ng-click="maps.selectGeoViz('choropleth3d')">3D Choropleth Map</button>
             <button class="set-viz-kind-btn">No Title</button>
             <button class="set-viz-kind-btn">No Title</button>
             <button class="set-viz-kind-btn">No Title</button>
@@ -49,13 +49,15 @@
     </div>
     <!-- selection geo-visualization end -->
     <!-- setting/save geo-visualization start -->
-    <div class="layer-box" ng-if="step==3">
+    <!-- <div class="layer-box" ng-if="step==3">
         <div>
            <p>setting/save geo-visualization</p>
         </div>
         <div class="add-layer">
             <button class="add-layer-btn" ng-click="maps.setGeoViz(-1, 1);">RETURN</button>
         </div>
-    </div>
+    </div> -->
     <!-- setting/save geo-visualization end -->
+    <div choropleth-directive class="layer-box" ng-show="step==3 && maps.statViz=='choropleth'"></div>
+    <div choropleth3d-directive class="layer-box" ng-show="step==3 && maps.statViz=='choropleth3d'"></div>
 </div>

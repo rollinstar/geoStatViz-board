@@ -11,7 +11,7 @@ function MapsCtrl($scope, TestService, LayerSrchService){
 
     //레이어 시각화 페이지 단계 (1:레이어목록화면 2:시각화선택화면 3:시각화설정화면)
     $scope.step = 1;
-
+    vm.statViz = '';
     //leaflet 지도 생성 container
     let map = new L.Map('map');
 
@@ -94,9 +94,8 @@ function MapsCtrl($scope, TestService, LayerSrchService){
 
     //공간데이터 시각화 선택
     vm.selectGeoViz = function(id){
-        if(id === 'choropleth'){
-            $scope.step = 3;
-        }
+        $scope.step = 3;
+        vm.statViz = id;
     }
 }
 
