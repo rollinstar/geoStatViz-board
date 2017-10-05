@@ -1,6 +1,6 @@
 function Choropleth3dDirective() {
 
-  return {
+return {
     restrict: 'EA',
     templateUrl: 'directives/geoviz/choropleth3d.html',
     scope: {
