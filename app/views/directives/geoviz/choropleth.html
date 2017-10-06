@@ -1,9 +1,48 @@
-<div class="choropleth-directive">
+<div name="choroplethDirective">
     <div>
         <p>setting/save geo-visualization</p>
+        <!-- select column -->
+        <div>
+            <label for="">Columns</label>
+            <select ng-model="layerColumn" ng-options="name for name in choroplethEditor.layerColumns">
+                <option value="">선택</option>
+            </select><br>
+            <label for="">Color</label>
+            <select ng-model="classColor">
+                <option value="">선택</option>
+            </select><br>
+            <label for="">Mode</label>
+            <select ng-model="mode">
+                <option value="">선택</option>
+            </select>
+        </div>
+
+        <!-- set data interval size  -->
+        <div>
+            <label for="">Class</label>
+            <select ng-model="classifyNum">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <ul>
+                <li ng-repeat="class in choroplethEditor.classes track by $index">
+                    <input type="text" ng-model="firstname"> ~ <input type="text" ng-model="secondtime">
+                </li>
+            </ul>
+        </div>
+
+        <div id="slidecontainer">
+            <input type="range" min="0" max="100" class="opacity-slider" ng-model="choroplethEditor.opacity" ng-change="choroplethEditor.changeOpacity()">
+        </div>
     </div>
     <div class="add-layer">
-        <button class="add-layer-btn" ng-click="maps.setGeoViz(-1, 1);">RETURN</button>
+            <button class="add-layer-btn" ng-click="choroplethEditor.visualizeGeoData();">APPLY</button>
+        <button class="add-layer-btn" ng-click="choroplethEditor.setGeoViz(-1, 1);">RETURN</button>
     </div>
 </div>
     
