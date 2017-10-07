@@ -9,15 +9,13 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     const vm = this;
     vm.title = 'MAP GENERATOR';
 
-    //레이어 시각화 페이지 단계 (1:레이어목록화면 2:시각화선택화면 3:시각화설정화면)
-    $scope.step = 1;
-    vm.statViz = '';
     //leaflet 지도 생성 container
     let map = new L.Map('map');
 
     //지도 렌더링 시 view 설정
-    let center = [36.00313319699069, 127.606201171875];   //중심점 좌표 (Latitude (위도), Longitude (경도))
-    let zoomLevel = 7;                                    //지도 렌더링 시 보여줄 zoomlevel
+    // let center = [36.00313319699069, 127.606201171875];   //중심점 좌표 (Latitude (위도), Longitude (경도))
+    let center = [35.1989, 129.0792];
+    let zoomLevel = 11;                                    //지도 렌더링 시 보여줄 zoomlevel
     map.setView(center, zoomLevel, false);                //setView
 
     /**
@@ -86,13 +84,25 @@ function MapsCtrl($scope, TestService, LayerSrchService){
             map.removeLayer(layer);
         }
     }
-
-    //페이지 전환
+    
+    $scope.step = 1;    //레이어 시각화 페이지 단계 (1:레이어목록화면 2:시각화선택화면 3:시각화설정화면)
+    vm.layerColumns = []   //column name array of selected layer
+    vm.vizLayerIdx = -1;    //시각화를 적용할 레이어 index
+    /**
+     * move to geo vizualization page
+     */
     vm.setGeoViz = function(idx, num){
         $scope.step = num;
+        vm.vizLayerIdx = idx;
+        if(idx == -1){
+            vm.layerColumns = []
+        }else{
+            vm.layerColumns = vm.addedLayerMetaList[idx].keys;
+        }
     }
 
     //공간데이터 시각화 선택
+    vm.statViz = '';
     vm.selectGeoViz = function(id){
         $scope.step = 3;
         vm.statViz = id;

@@ -4,27 +4,49 @@ function ChoroplethDirective() {
      * @desc 
      * @type {Function}
      */
-    function choroplethCtrl(){
+    function choroplethCtrl(ColorbrewerService){
+        'ngInject'
         console.log('scope : ',scope);
+        
         const vm = this;
-        vm.layerColumns = scope.maps.addedLayerMetaList[0].keys;
+
+        //color scale (도메인 범위와 색상을 매칭)
+        // let colorScale = d3.scale.threshold()
+        // .domain([0, 1000, 3000, 6000, 9000, 12000, 15000]) // max = 617
+        // .range(['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177']);
+        
+        //set a column name for applying visualization
+        vm.setColumnNm = function(){
+            console.log(vm.layerColumnNm);
+        };
+
+        //set colorbrew from colorbrewer
+        vm.setColorbrew = function(){
+            console.log(vm.classColorbrew);
+            let colorbrew = ColorbrewerService.getColorbrew(vm.classColorbrew, 5);
+
+            console.log('colorbrew : ', colorbrew);
+        };
+
+        //data visualization classes scope
         scope.classifyNum = 1;
         vm.classes = [];
         for(let i = 0;i < scope.classifyNum;i++){
-            vm.classes.push(i);
+            vm.classes.push(i+1);
         }
 
+        //transparent
         vm.opacity = 0;
         vm.changeOpacity = function(){
             console.log(vm.opacity/100);
-        }
+        };
 
-        //페이지 전환 (지도 선택 화면으로 이동)
+        //move to page for selecting statistic visualization method
         vm.setGeoViz = function(idx, num){
             scope.step = num;
         }
 
-        //지도 시각화 실행
+        //visualization map
         vm.visualizeGeoData = function(){
             console.log('시각화 실행');
         }
