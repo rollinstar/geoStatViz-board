@@ -7,41 +7,50 @@
             <select ng-model="choroplethEditor.layerColumnNm" ng-options="name for name in maps.layerColumns" ng-change="choroplethEditor.setColumnNm()">
                 <option value="">선택</option>
             </select><br>
+
             <label for="">Color</label>
-            <select ng-model="choroplethEditor.classColorbrew" ng-change="choroplethEditor.setColorbrew()">
-                <option value="YlGn">YlGn</option>
-            </select><br>
-            <label for="">Mode</label>
-            <select ng-model="mode">
+            <select ng-model="choroplethEditor.classColorbrew" ng-options="colorbrew for colorbrew in choroplethEditor.colorBrewerList" ng-change="choroplethEditor.getColorbrew()">
                 <option value="">선택</option>
-            </select>
+            </select><br>
         </div>
 
         <!-- set data interval size  -->
-        <div>
+        <div style="border:1px solid #000000;">
             <label for="">Class</label>
-            <select ng-model="classifyNum">
-                <option value="1">1</option>
-                <option value="2">2</option>
+            <select ng-model="choroplethEditor.class" ng-change="choroplethEditor.setClasses()">
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
             </select>
-            <ul>
+            <label for="">Mode</label>
+            <select ng-model="mode" ng-model="choroplethEditor.mode">
+                <option value="">등간격</option>
+                <option value="">내츄럴 브레이크(Jenks)</option>
+                <option value="">표준편차</option>
+                <option value="">프리티 브레이크</option>
+            </select>
+            <ul>    
+                <!-- <li>
+                    <input type="text" ng-model="choroplethEditor.minValue"> ~ <input type="text" ng-model="choroplethEditor.maxValue[1]">
+                </li>
+                <li>
+                    <input type="text" ng-model="choroplethEditor.maxValue[1]"> ~ <input type="text" ng-model="choroplethEditor.maxValue[2]">
+                </li> -->
                 <li ng-repeat="class in choroplethEditor.classes track by $index">
-                    <input type="text" ng-model="firstname"> ~ <input type="text" ng-model="secondtime">
+                    <input type="text" ng-model="choroplethEditor.classes[$index]"> ~ <input type="text" ng-model="choroplethEditor.classes[$index+1]">
                 </li>
             </ul>
         </div>
 
         <div id="slidecontainer">
+            <label for="opacity-slider">Opacity</label>
             <input type="range" min="0" max="100" class="opacity-slider" ng-model="choroplethEditor.opacity" ng-change="choroplethEditor.changeOpacity()">
         </div>
     </div>
     <div class="add-layer">
-            <button class="add-layer-btn" ng-click="choroplethEditor.visualizeGeoData();">APPLY</button>
+        <button class="add-layer-btn" ng-click="choroplethEditor.applyViualization();">APPLY</button>
         <button class="add-layer-btn" ng-click="choroplethEditor.setGeoViz(-1, 2);">RETURN</button>
     </div>
 </div>

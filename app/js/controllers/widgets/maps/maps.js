@@ -63,10 +63,14 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     let layers = [];        //
     for(let i = 0;i < vm.addedLayerMetaList.length;i++){
         let layer = vm.addedLayerMetaList[i];
-        layers.push(new L.geoJSON(layer.data, options));
-        layers[i].addTo(map);
-    }
+        let layerObj = {
+            layer: new L.geoJSON(layer.data, options),
+            vizInfo: null
+        };
 
+        layers.push(layerObj);
+        layers[i].layer.addTo(map);
+    }
 
     /**
      * ===== ===== ===== ===== start ===== ===== ===== =====
@@ -106,6 +110,47 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     vm.selectGeoViz = function(id){
         $scope.step = 3;
         vm.statViz = id;
+    }
+
+    vm.setVizualizationMap = function(obj){
+        // console.log('attr : ', attr);
+        // let style = {
+        //     fillColor: getColor(attr.layerColumnNm),
+        //     color: '#ff0000',
+        //     weight: 0.3,
+        //     opacity: 1,
+        //     fillOpacity: attr.opacity
+        // };
+        layers[vm.vizLayerIdx].vizInfo = obj;
+        let layer = vm.addedLayerMetaList[vm.vizLayerIdx];
+        let nLayer = new L.geoJSON(layer.data, {style:getStyle});
+        // let style = getStyle();
+        console.log(layers[vm.vizLayerIdx].layer);
+        layers[vm.vizLayerIdx].layer = nLayer;
+        layers[vm.vizLayerIdx].layer.addTo(map);
+        // layers[vm.vizLayerIdx].layer.setStyle(getStyle())
+    }
+
+    function getColor(value){
+        let colorScale = layers[vm.vizLayerIdx].vizInfo.colorScale;
+        let rgb = d3.rgb(colorScale(value));
+        // console.log(rgb);
+        return rgb;
+    }
+
+    //지도 스타일 생성
+    function getStyle(feature) {
+        let keyNm = layers[vm.vizLayerIdx].vizInfo.layerColumnNm
+        console.log('test : ', getColor(feature.properties[keyNm]));
+        return {
+            fillColor: getColor(feature.properties[keyNm]),
+            // fillColor: '#fcaa00',
+            weight: 1,
+            opacity: 1,
+            color: 'black',
+            // dashArray: '3',
+            fillOpacity: 0.5
+        };
     }
 }
 

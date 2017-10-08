@@ -6,30 +6,53 @@ function ChoroplethDirective() {
      */
     function choroplethCtrl(ColorbrewerService){
         'ngInject'
+
+        // const d3 = require("d3");
+
         console.log('scope : ',scope);
         
         const vm = this;
-
-        //color scale (도메인 범위와 색상을 매칭)
-        // let colorScale = d3.scale.threshold()
-        // .domain([0, 1000, 3000, 6000, 9000, 12000, 15000]) // max = 617
-        // .range(['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177']);
         
         //set a column name for applying visualization
+        vm.layerColumnNm = '';
         vm.setColumnNm = function(){
             console.log(vm.layerColumnNm);
         };
 
-        //set colorbrew from colorbrewer
-        vm.setColorbrew = function(){
-            console.log(vm.classColorbrew);
-            let colorbrew = ColorbrewerService.getColorbrew(vm.classColorbrew, 5);
-
-            console.log('colorbrew : ', colorbrew);
-        };
+        //colorbrew array
+        vm.colorBrewerList = ['YlGn', 'YlGnBu', 'GnBu', 'BuGn', 'PuBuGn', 'PuBu', 'BuPu', 'RdPu', 'PuRd', 'OrRd', 'YlOrRd', 'YlOrBr', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds', 'Greys', 'PuOr', 'BrBG', 'PRGn', 'PiYG', 'RdBu', 'RdGy', 'RdYlBu', 'Spectral', 'RdYlGn', 'Accent', 'Dark2', 'Paired', 'Pastel1', 'Pastel2', 'Set1', 'Set2', 'Set3']
 
         //data visualization classes scope
-        scope.classifyNum = 1;
+        vm.classifyNum = 3;
+        //set colorbrew from colorbrewer
+        vm.colorbrew = {};
+        vm.getColorbrew = function(){
+            console.log(vm.classColorbrew);
+            if(vm.classColorbrew){
+                vm.colorbrew = ColorbrewerService.getColorbrew(vm.classColorbrew);
+                console.log(vm.colorbrew);
+            }
+        };
+
+        //color scale (도메인 범위와 색상을 매칭)
+        let colorScale;
+        //color scale (도메인 범위와 색상을 매칭)
+        // let colorScale = d3.scale.threshold()
+        // .domain([0, 1000, 3000, 6000, 9000, 12000, 15000]) // max = 617
+        // .range(['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177']);
+        vm.classes = [];
+        vm.setClasses = function(){
+            // let idx = scope.maps.vizLayerIdx;
+            // let values = scope.maps.addedLayerMetaList[idx].data.pro
+            vm.classes = [];
+            colorScale = {};
+            let values = [0, 1000, 3000, 6000, 9000, 12000, 15000];
+            for(let i = 0;i < vm.class;i++){
+                vm.classes.push(values[i]);
+            }
+            colorScale = d3.scale.threshold().domain(vm.classes).range(vm.colorbrew[vm.class]);
+        }
+        
         vm.classes = [];
         for(let i = 0;i < scope.classifyNum;i++){
             vm.classes.push(i+1);
@@ -47,8 +70,21 @@ function ChoroplethDirective() {
         }
 
         //visualization map
-        vm.visualizeGeoData = function(){
+        vm.applyViualization = function(){
             console.log('시각화 실행');
+            let attributes = {
+                layerColumnNm: vm.layerColumnNm,
+                colorScale: colorScale,
+                opacity: vm.opacity
+            };
+            if(!attributes.layerColumnNm){
+                alert('Please select a column name');
+                return;
+            }else if(!attributes.colorScale){
+                alert('Please select a color and class');
+                return;
+            }
+            scope.maps.setVizualizationMap(attributes);
         }
     }    
 

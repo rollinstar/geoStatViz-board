@@ -71,19 +71,6 @@ function LayerSrchService() {
         }
         return objects;
     }
-    //return an array of keys that match on a certain value
-    function getKeys(obj, val) {
-        var objects = [];
-        for (var i in obj) {
-            if (!obj.hasOwnProperty(i)) continue;
-            if (typeof obj[i] == 'object') {
-                objects = objects.concat(getKeys(obj[i], val));
-            } else if (obj[i] == val) {
-                objects.push(i);
-            }
-        }
-        return objects;
-    }
 
     // 부상 정보 입력/수정
     function getSampleGeoJson() {
@@ -91,7 +78,7 @@ function LayerSrchService() {
          *  grid 데이터를 wfs를 통해 geojson으로 얻을 수 있다.
          * http://localhost:8080/geoserver/test_data/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=test_data:busam_crime_grid&maxFeatures=50&outputFormat=application%2Fjson&srsname=EPSG:4326
          */
-        let busan_crime_grid = {'type':'FeatureCollection','crs':{'type':'name','properties':{'name':'urn:ogc:def:crs:EPSG::4326'}}, 'features': [
+        let busanCrimeGrid = {'type':'FeatureCollection','crs':{'type':'name','properties':{'name':'urn:ogc:def:crs:EPSG::4326'}}, 'features': [
             {'type':'Feature','geometry':{'type':'Polygon','coordinates':[[[128.82686324,35.00607467],[128.82684425,35.01508845],[128.83780053,35.01510359],[128.83781833,35.0060898],[128.82686324,35.00607467]]]},'properties':{'V1':3083091.4213,'V2':0,'V3':0,'V4':0,'V5':1472.31,'V6':0,'V7':6024.19,'V8':479,'V9':24609,'V10':86,'V11':37,'V12':9,'V13':0,'DV':1067,'GRID_ID':4,'coordX':184695.822,'coordY':168282.5088,'Area_num':0,'Area_key':4,'x_coord':184695.822,'y_coord':168282.5088,'est_Interc':3616.529863,'se_Interce':918.053568,'t_Intercep':3.939345,'est_V1':-0.000009,'se_V1':0.000327,'t_V1':-0.027664,'est_V2':214.478435,'se_V2':127.327691,'t_V2':1.68446,'est_V3':-73.583376,'se_V3':58.459427,'t_V3':-1.258708,'est_V5':-0.006765,'se_V5':0.004173,'t_V5':-1.621216,'est_V6':0.078254,'se_V6':0.00703,'t_V6':11.132044,'est_V7':-0.000466,'se_V7':0.004759,'t_V7':-0.097913,'est_V8':0.405879,'se_V8':1.512209,'t_V8':0.268401,'est_V9':-0.001366,'se_V9':0.00079,'t_V9':-1.729879,'est_V10':-49.565306,'se_V10':11.354134,'t_V10':-4.365397,'est_V11':19.435129,'se_V11':9.56757,'t_V11':2.031355,'est_V12':94.236154,'se_V12':22.859754,'t_V12':4.122361,'est_V13':0.007532,'se_V13':0.003472,'t_V13':2.169062,'y':1067,'yhat':1041.257368,'residual':25.742632,'std_residu':0.010804,'localR2':0.670114,'influence':0.206473,'CooksD':0.000001},'id':'busam_crime_grid.1'},
             {'type':'Feature','geometry':{'type':'Polygon','coordinates':[[[128.80491029,35.02406896],[128.81586776,35.02408608],[128.81588797,35.01507232],[128.8049317,35.01505521],[128.80491029,35.02406896]]]},'properties':{'V1':0,'V2':1,'V3':0,'V4':0,'V5':144,'V6':0,'V7':114.15,'V8':479,'V9':24609,'V10':86,'V11':37,'V12':9,'V13':0,'DV':545,'GRID_ID':5,'coordX':182695.822,'coordY':169282.5088,'Area_num':1,'Area_key':5,'x_coord':182695.822,'y_coord':169282.5088,'est_Interc':3410.370936,'se_Interce':923.139269,'t_Intercep':3.694319,'est_V1':-0.000016,'se_V1':0.00033,'t_V1':-0.048281,'est_V2':219.155889,'se_V2':127.68144,'t_V2':1.716427,'est_V3':-70.350559,'se_V3':58.274471,'t_V3':-1.207228,'est_V5':-0.006919,'se_V5':0.00417,'t_V5':-1.659173,'est_V6':0.078218,'se_V6':0.007083,'t_V6':11.043369,'est_V7':-0.000432,'se_V7':0.004723,'t_V7':-0.091374,'est_V8':0.619116,'se_V8':1.5189,'t_V8':0.407608,'est_V9':-0.001569,'se_V9':0.000797,'t_V9':-1.967585,'est_V10':-49.752537,'se_V10':11.382471,'t_V10':-4.370979,'est_V11':20.337213,'se_V11':9.521416,'t_V11':2.135944,'est_V12':100.172521,'se_V12':22.914817,'t_V12':4.371517,'est_V13':0.007802,'se_V13':0.003466,'t_V13':2.251317,'y':545,'yhat':1261.743142,'residual':-716.743142,'std_residu':-0.27922,'localR2':0.670544,'influence':0.078999,'CooksD':0.000129},'id':'busam_crime_grid.2'},
             {'type':'Feature','geometry':{'type':'Polygon','coordinates':[[[128.80491029,35.02406896],[128.80488887,35.0330827],[128.81584755,35.03309983],[128.81586776,35.02408608],[128.80491029,35.02406896]]]},'properties':{'V1':0,'V2':0,'V3':1,'V4':0,'V5':1843.89,'V6':0,'V7':3804.51,'V8':588.5,'V9':26396,'V10':85,'V11':44,'V12':13.5,'V13':0,'DV':765,'GRID_ID':8,'coordX':182695.822,'coordY':170282.5088,'Area_num':2,'Area_key':8,'x_coord':182695.822,'y_coord':170282.5088,'est_Interc':3215.009839,'se_Interce':938.496471,'t_Intercep':3.425703,'est_V1':-0.000025,'se_V1':0.000342,'t_V1':-0.074365,'est_V2':221.004624,'se_V2':134.222458,'t_V2':1.646555,'est_V3':-71.257265,'se_V3':59.495577,'t_V3':-1.19769,'est_V5':-0.006851,'se_V5':0.004302,'t_V5':-1.592567,'est_V6':0.078842,'se_V6':0.007308,'t_V6':10.788898,'est_V7':-0.000506,'se_V7':0.004941,'t_V7':-0.102412,'est_V8':0.770314,'se_V8':1.540593,'t_V8':0.500011,'est_V9':-0.00178,'se_V9':0.00082,'t_V9':-2.172571,'est_V10':-48.764269,'se_V10':11.630332,'t_V10':-4.192853,'est_V11':20.459529,'se_V11':9.825608,'t_V11':2.082266,'est_V12':103.545556,'se_V12':23.530681,'t_V12':4.400449,'est_V13':0.007994,'se_V13':0.003608,'t_V13':2.215342,'y':765,'yhat':1688.64719,'residual':-923.64719,'std_residu':-0.355524,'localR2':0.669688,'influence':0.056592,'CooksD':0.000146},'id':'busam_crime_grid.3'},
@@ -1000,7 +987,7 @@ function LayerSrchService() {
 
             let data = [];
             data.push(sggJson);
-            data.push(busan_crime_grid);
+            data.push(busanCrimeGrid);
 
             return data;
     };
