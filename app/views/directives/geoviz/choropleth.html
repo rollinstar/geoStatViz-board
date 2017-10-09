@@ -17,19 +17,21 @@
         <!-- set data interval size  -->
         <div style="border:1px solid #000000;">
             <label for="">Class</label>
-            <select ng-model="choroplethEditor.class" ng-change="choroplethEditor.setClasses()">
+            <select ng-model="choroplethEditor.class" ng-init="choroplethEditor.class='3'" ng-change="choroplethEditor.setClasses()">
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
             </select>
             <label for="">Mode</label>
-            <select ng-model="mode" ng-model="choroplethEditor.mode">
-                <option value="">등간격</option>
-                <option value="">내츄럴 브레이크(Jenks)</option>
-                <option value="">표준편차</option>
-                <option value="">프리티 브레이크</option>
+            <select ng-model="choroplethEditor.mode" ng-init="choroplethEditor.mode='equal'" ng-change="choroplethEditor.setClasses()">
+                <option value="equal">등간격</option>
+                <option value="natural">내츄럴 브레이크(Jenks)</option>
+                <option value="standard">표준편차</option>
+                <option value="pretty">프리티 브레이크</option>
             </select>
             <ul>    
                 <!-- <li>
@@ -39,7 +41,9 @@
                     <input type="text" ng-model="choroplethEditor.maxValue[1]"> ~ <input type="text" ng-model="choroplethEditor.maxValue[2]">
                 </li> -->
                 <li ng-repeat="class in choroplethEditor.classes track by $index">
-                    <input type="text" ng-model="choroplethEditor.classes[$index]"> ~ <input type="text" ng-model="choroplethEditor.classes[$index+1]">
+                    <input type="text" ng-model="choroplethEditor.classes[$index]"> ~ 
+                    <input type="text" ng-if="choroplethEditor.classes.length != $index+1" ng-model="choroplethEditor.classes[$index+1]">
+                    <input type="text" ng-if="choroplethEditor.classes.length == $index+1" ng-model="choroplethEditor.valueClass.max">
                 </li>
             </ul>
         </div>

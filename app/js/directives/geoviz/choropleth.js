@@ -4,7 +4,7 @@ function ChoroplethDirective() {
      * @desc 
      * @type {Function}
      */
-    function choroplethCtrl(ColorbrewerService){
+    function choroplethCtrl(ColorbrewerService, DataMakerService){
         'ngInject'
 
         // const d3 = require("d3");
@@ -12,18 +12,37 @@ function ChoroplethDirective() {
         console.log('scope : ',scope);
         
         const vm = this;
+
+        //배열 number형 데이터 sort
+        function compare(num1, num2){
+            return num1 - num2;
+        }
+        
+        //colorbrew array
+        vm.colorBrewerList = ['YlGn', 'YlGnBu', 'GnBu', 'BuGn', 'PuBuGn', 'PuBu', 'BuPu', 'RdPu', 'PuRd', 'OrRd', 'YlOrRd', 'YlOrBr', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds', 'Greys', 'PuOr', 'BrBG', 'PRGn', 'PiYG', 'RdBu', 'RdGy', 'RdYlBu', 'Spectral', 'RdYlGn', 'Accent', 'Dark2', 'Paired', 'Pastel1', 'Pastel2', 'Set1', 'Set2', 'Set3'];
         
         //set a column name for applying visualization
         vm.layerColumnNm = '';
-        vm.setColumnNm = function(){
-            console.log(vm.layerColumnNm);
+        vm.valueClass = {           
+            max: 0,
+            min: 0
         };
-
-        //colorbrew array
-        vm.colorBrewerList = ['YlGn', 'YlGnBu', 'GnBu', 'BuGn', 'PuBuGn', 'PuBu', 'BuPu', 'RdPu', 'PuRd', 'OrRd', 'YlOrRd', 'YlOrBr', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds', 'Greys', 'PuOr', 'BrBG', 'PRGn', 'PiYG', 'RdBu', 'RdGy', 'RdYlBu', 'Spectral', 'RdYlGn', 'Accent', 'Dark2', 'Paired', 'Pastel1', 'Pastel2', 'Set1', 'Set2', 'Set3']
+        vm.setColumnNm = function(){
+            let idx = scope.maps.vizLayerIdx;
+            let layerObj = scope.maps.addedLayerMetaList[idx].data
+            let values = DataMakerService.getValues(layerObj.features, vm.layerColumnNm);
+            // values.sort(compare);
+            console.log('values : ', values);
+            console.log('values : ', Math.max(...values));
+            console.log('values : ', Math.min(...values));
+            vm.valueClass = {           //
+                max: Math.max(...values),
+                min: Math.min(...values)
+            };
+        }
 
         //data visualization classes scope
-        vm.classifyNum = 3;
+        vm.class = '3';
         //set colorbrew from colorbrewer
         vm.colorbrew = {};
         vm.getColorbrew = function(){
@@ -44,20 +63,38 @@ function ChoroplethDirective() {
         vm.setClasses = function(){
             // let idx = scope.maps.vizLayerIdx;
             // let values = scope.maps.addedLayerMetaList[idx].data.pro
+            if(!vm.layerColumnNm){
+                alert('Please select a column name');
+                return;
+            }
             vm.classes = [];
             colorScale = {};
-            let values = [0, 1000, 3000, 6000, 9000, 12000, 15000];
-            for(let i = 0;i < vm.class;i++){
+            
+            let values = [];
+            if(vm.mode == 'equal'){
+                let max = vm.valueClass.max;
+                let min = vm.valueClass.min;
+                let interval = Math.floor((max - min)/vm.class);
+                
+                for(let i = 0;i < vm.class;i++){
+                    if(i === 0){
+                        values.push(min);
+                    }else{
+                        let len = values.length - 1;
+                        let value = values[len] + interval;
+                        values.push(value);
+                    }
+                }
+            }
+
+            for(let i = 0;i < values.length;i++){
                 vm.classes.push(values[i]);
             }
-            colorScale = d3.scale.threshold().domain(vm.classes).range(vm.colorbrew[vm.class]);
+            console.log('values : ', values);
+            console.log('vm.colorbrew[vm.class] : ', vm.colorbrew[vm.class]);
+            colorScale = d3.scale.threshold().domain(values).range(vm.colorbrew[vm.class]);
         }
         
-        vm.classes = [];
-        for(let i = 0;i < scope.classifyNum;i++){
-            vm.classes.push(i+1);
-        }
-
         //transparent
         vm.opacity = 0;
         vm.changeOpacity = function(){
@@ -75,7 +112,7 @@ function ChoroplethDirective() {
             let attributes = {
                 layerColumnNm: vm.layerColumnNm,
                 colorScale: colorScale,
-                opacity: vm.opacity
+                opacity: vm.opacity/100
             };
             if(!attributes.layerColumnNm){
                 alert('Please select a column name');

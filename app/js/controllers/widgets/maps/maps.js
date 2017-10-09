@@ -81,7 +81,7 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     //지도에서 레이어 추가/삭제
     vm.addedLayerDisplay = function(idx, $event){
         var checkbox = $event.target;
-        var layer = layers[idx];
+        var layer = layers[idx].layer;
         if(checkbox.checked){
             map.addLayer(layer);
         }else{
@@ -113,21 +113,16 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     }
 
     vm.setVizualizationMap = function(obj){
-        // console.log('attr : ', attr);
-        // let style = {
-        //     fillColor: getColor(attr.layerColumnNm),
-        //     color: '#ff0000',
-        //     weight: 0.3,
-        //     opacity: 1,
-        //     fillOpacity: attr.opacity
-        // };
+        let idx = vm.vizLayerIdx;
+        let olayer = layers[idx].layer;
+        map.removeLayer(olayer);
         layers[vm.vizLayerIdx].vizInfo = obj;
-        let layer = vm.addedLayerMetaList[vm.vizLayerIdx];
+        let layer = vm.addedLayerMetaList[idx];
         let nLayer = new L.geoJSON(layer.data, {style:getStyle});
-        // let style = getStyle();
-        console.log(layers[vm.vizLayerIdx].layer);
-        layers[vm.vizLayerIdx].layer = nLayer;
-        layers[vm.vizLayerIdx].layer.addTo(map);
+        
+        console.log(layers[idx].layer);
+        layers[idx].layer = nLayer;
+        layers[idx].layer.addTo(map);
         // layers[vm.vizLayerIdx].layer.setStyle(getStyle())
     }
 
@@ -141,15 +136,14 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     //지도 스타일 생성
     function getStyle(feature) {
         let keyNm = layers[vm.vizLayerIdx].vizInfo.layerColumnNm
+        let opacity = layers[vm.vizLayerIdx].vizInfo.opacity
         console.log('test : ', getColor(feature.properties[keyNm]));
         return {
             fillColor: getColor(feature.properties[keyNm]),
-            // fillColor: '#fcaa00',
             weight: 1,
             opacity: 1,
             color: 'black',
-            // dashArray: '3',
-            fillOpacity: 0.5
+            fillOpacity: opacity
         };
     }
 }
