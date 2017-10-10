@@ -29,6 +29,9 @@ function ChoroplethDirective() {
         };
         vm.setColumnNm = function(){
             let idx = scope.maps.vizLayerIdx;
+            if(idx === -1){
+                return;
+            }
             let layerObj = scope.maps.addedLayerMetaList[idx].data
             let values = DataMakerService.getValues(layerObj.features, vm.layerColumnNm);
             // values.sort(compare);

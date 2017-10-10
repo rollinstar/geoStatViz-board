@@ -137,7 +137,7 @@ function MapsCtrl($scope, TestService, LayerSrchService){
     function getStyle(feature) {
         let keyNm = layers[vm.vizLayerIdx].vizInfo.layerColumnNm
         let opacity = layers[vm.vizLayerIdx].vizInfo.opacity
-        console.log('test : ', getColor(feature.properties[keyNm]));
+        // console.log('test : ', getColor(feature.properties[keyNm]));
         return {
             fillColor: getColor(feature.properties[keyNm]),
             weight: 1,
