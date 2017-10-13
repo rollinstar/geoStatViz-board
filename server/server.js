@@ -1,4 +1,4 @@
-var express    = require('express'),
+let express    = require('express'),
     bodyParser = require('body-parser'),
     path       = require('path'),
     app        = express();
@@ -20,12 +20,12 @@ app.use('/api/test', require('./api/test')); //*
 // Angular
 app.use(express.static(path.resolve(__dirname, '../build'))); //1
 app.get('*', function (req, res) { //2
-  var indexFile = path.resolve(__dirname,'../build/index.html');
+  let indexFile = path.resolve(__dirname,'../build/index.html');
   res.sendFile(indexFile);
 });
 
 // Server
-var port = 8080;
+let port = 8080;
 app.listen(port, function(){
   console.log('listening on port:' + port);
 });
