@@ -261,7 +261,6 @@ function TestService() {
             return sggJson;
     };
 
-
     return service;
 
 }

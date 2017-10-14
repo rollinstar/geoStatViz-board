@@ -1,4 +1,4 @@
-function MapsCtrl($scope, TestService, LayerSrchService){
+function MapsCtrl($scope, TestService, LayerSrchService, GeoDataService){
     'ngInject';
 
     window['scope'] = $scope;
@@ -124,6 +124,13 @@ function MapsCtrl($scope, TestService, LayerSrchService){
         layers[idx].layer = nLayer;
         layers[idx].layer.addTo(map);
         // layers[vm.vizLayerIdx].layer.setStyle(getStyle())
+    }
+
+    vm.getLayerList = function(){
+        console.log('test test test');
+        GeoDataService.getGeoDataList().then(function(data){
+            console.log(data);
+        });
     }
 
     function getColor(value){
