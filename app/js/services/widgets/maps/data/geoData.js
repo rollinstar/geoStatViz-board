@@ -1,4 +1,4 @@
-function GeoDataService(AppSettings, RestCommonService) {
+function GeoDataService(AppSettings, RestService) {
     'ngInject';
     
     const service = {};
@@ -7,7 +7,7 @@ function GeoDataService(AppSettings, RestCommonService) {
         const url = AppSettings.apiUrl.restUrl + 'api/test/abc';
 
         // return CommonService.post(url, params);
-        return RestCommonService.get(url);
+        return RestService.get(url);
     }
 
     return service;
