@@ -1,4 +1,4 @@
-function RestCommonService($http, $httpParamSerializer, AppSettings) {
+function RestService($http, $httpParamSerializer, AppSettings) {
     'ngInject';
   
     const service = {};
@@ -38,7 +38,7 @@ function RestCommonService($http, $httpParamSerializer, AppSettings) {
   }
   
   export default {
-    name: 'RestCommonService',
-    fn: RestCommonService
+    name: 'RestService',
+    fn: RestService
   };
   
