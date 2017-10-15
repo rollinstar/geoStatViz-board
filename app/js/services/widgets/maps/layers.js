@@ -7,12 +7,17 @@ function LayerSrchService() {
         let layerList = [];
         let data = getSampleGeoJson();       //향 후 Geoserver WMS url로 변경할 예정
         for(let i = 0;i < data.length;i++){
-            var keys = Object.keys(data[i].features[0].properties);
+            let keys = Object.keys(data[i].features[0].properties);
+            let layerNm = ''
+            if(i == 0)
+                layerNm = 'Korea';
+            else
+                layerNm = 'Busan-Crime-Grid';
 
             let layerMetaInfo = {
                 source: 'sys',
                 layerId: 'layer_00' + i,
-                layerNm: 'layerNm_00' + i,
+                layerNm,
                 data: data[i],
                 metadata: null,
                 keys: keys
