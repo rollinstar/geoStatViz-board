@@ -15,4 +15,4 @@
     * Spatial Autocorrelation(Morans’ I) 등을 구현할 얘정
 
 
-![sample-01](./images/sample/sample-01.png)
+![sample-01](./app/images/sample/sample-01.png)
