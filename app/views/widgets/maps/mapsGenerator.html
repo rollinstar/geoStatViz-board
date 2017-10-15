@@ -1,5 +1,5 @@
 <div>
-    <h2>지도 만들기</h2>
+    <h2 style="font-size: 25px;font-weight: bold;color: #f52828;">Visualize a statistics map</h2>
     <!-- leaflet map div start -->
     <div id="map" class="map"></div>
     <!-- leaflet map div end -->
@@ -13,17 +13,12 @@
                         <span class="slider round"></span>
                     </label>
                     <span class="layer-name">{{layer.layerNm}}</span>
-                    <!-- <img class="set-layer-btn" src="images/buttons/set-layer-btn.png" alt=""> -->
+                    <button class="set-viz-btn" ng-click="maps.setGeoViz($index, 2);"></button>
                     <button class="set-layer-btn" ng-click="maps.setGeoViz($index, 2);"></button>
                 </li>
-                <li class="layer-select-area">
-                    <label class="switch">
-                        <input type="checkbox" ng-checked="true">
-                        <span class="slider round"></span>
-                    </label>
-                    <span class="layer-name">Tile Map</span>
-                    <button class="set-layer-btn"></button>
-                </li>
+                <!-- <li class="layer-select-area">
+                    <span class="tile-layer">Tile Map</span>
+                </li> -->
             </ul>
         </div>
         <div class="add-layer">
