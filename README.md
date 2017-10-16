@@ -9,10 +9,10 @@
   * Interpolation
   * GWR 
   * Average Nearest Neighbor
-    * High/Low Clustering(Getis-Ord G) 
-    * Hot Spot Analysis(Getis-Ord Gi*)
-    * Cluster and OutlinerAnalysis(Anselin Local Morans' I)
-    * Spatial Autocorrelation(Morans’ I) 등을 구현할 얘정
+  * High/Low Clustering(Getis-Ord G) 
+  * Hot Spot Analysis(Getis-Ord Gi*)
+  * Cluster and OutlinerAnalysis(Anselin Local Morans' I)
+  * Spatial Autocorrelation(Morans’ I) 등을 구현할 얘정
 
 
 ![sample-01](./app/images/sample/sample-01.png)
