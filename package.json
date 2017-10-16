@@ -88,6 +88,7 @@
     "merge-stream": "^1.0.0",
     "path": "^0.12.7",
     "pretty-hrtime": "^1.0.1",
+    "r-script": "0.0.3",
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1",
     "uglifyify": "^3.0.1",
