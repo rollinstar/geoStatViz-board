@@ -3,21 +3,21 @@
         <p>Make a choropleth map</p>
         <!-- select column -->
         <div>
-            <label for="">Columns</label>
-            <select ng-model="choroplethEditor.layerColumnNm" ng-options="name for name in maps.layerColumns" ng-change="choroplethEditor.setColumnNm()">
+            <label class="label" for="">Columns</label>
+            <select class="condition-select" ng-model="choroplethEditor.layerColumnNm" ng-options="name for name in maps.layerColumns" ng-change="choroplethEditor.setColumnNm()">
                 <option value="">선택</option>
             </select><br>
 
-            <label for="">Color</label>
-            <select ng-model="choroplethEditor.classColorbrew" ng-options="colorbrew for colorbrew in choroplethEditor.colorBrewerList" ng-change="choroplethEditor.getColorbrew()">
+            <label class="label" for="">Color</label>
+            <select class="condition-select" ng-model="choroplethEditor.classColorbrew" ng-options="colorbrew for colorbrew in choroplethEditor.colorBrewerList" ng-change="choroplethEditor.getColorbrew()">
                 <option value="">선택</option>
             </select><br>
         </div>
 
         <!-- set data interval size  -->
-        <div style="border:1px solid #000000;">
-            <label for="">Class</label>
-            <select ng-model="choroplethEditor.class" ng-init="choroplethEditor.class='3'" ng-change="choroplethEditor.setClasses()">
+        <div class="sub-condition-box">
+            <label class="label" for="">Class</label>
+            <select class="condition-select" ng-model="choroplethEditor.class" ng-init="choroplethEditor.class='3'" ng-change="choroplethEditor.setClasses()">
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
@@ -25,9 +25,9 @@
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
-            </select>
-            <label for="">Mode</label>
-            <select ng-model="choroplethEditor.mode" ng-init="choroplethEditor.mode='equal'" ng-change="choroplethEditor.setClasses()">
+            </select><br>
+            <label class="label" for="">Mode</label>
+            <select class="condition-select" ng-model="choroplethEditor.mode" ng-init="choroplethEditor.mode='equal'" ng-change="choroplethEditor.setClasses()">
                 <option value="equal">등간격</option>
                 <option value="natural">내츄럴 브레이크(Jenks)</option>
                 <option value="standard">표준편차</option>
@@ -49,7 +49,7 @@
         </div>
 
         <div id="slidecontainer">
-            <label for="opacity-slider">Opacity</label>
+            <label class="label" for="opacity-slider">Opacity <font size="3" color="red">{{choroplethEditor.opacity}}%</font></label>
             <input type="range" min="0" max="100" class="opacity-slider" ng-model="choroplethEditor.opacity" ng-change="choroplethEditor.changeOpacity()">
         </div>
     </div>

@@ -1,4 +1,4 @@
-function MapsCtrl($scope, TestService, LayerSrchService, GeoDataService){
+function MapsCtrl($scope, LayerSrchService, GeoDataService){
     'ngInject';
 
     window['scope'] = $scope;
