@@ -99,7 +99,7 @@ function ChoroplethDirective() {
         }
         
         //transparent
-        vm.opacity = 0;
+        vm.opacity = 50;
         vm.changeOpacity = function(){
             console.log(vm.opacity/100);
         };
